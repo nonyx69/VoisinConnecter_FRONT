@@ -7,7 +7,6 @@
   box-sizing: border-box;
 }
 
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -23,9 +22,6 @@
   text-decoration: none;
   color: #333;
 }
-
-/* Dans src/styles.css */
-
 
 .content {
   flex: 1;
