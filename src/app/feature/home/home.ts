@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../product/product';
-import { User} from '../../shared/models/user.model';
+import { User } from '../../shared/models/user.model';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
