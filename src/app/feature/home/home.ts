@@ -1,6 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ProductService } from '../product.service/product.service';
+import { Product } from '../product/product';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +10,7 @@ import { ProductService } from '../product.service/product.service';
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  private productService = inject(ProductService);
+  private productService = inject(Product);
 
   protected products = signal<any[]>([]);
 
