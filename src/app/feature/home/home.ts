@@ -1,6 +1,8 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product } from '../product/product';
+import { User} from '../../shared/models/user.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +12,24 @@ import { Product } from '../product/product';
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
+  private platformId = inject(PLATFORM_ID);
   private productService = inject(Product);
+  currentUser: User | null = null;
 
   protected products = signal<any[]>([]);
 
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const data = localStorage.getItem('ma_cle');
+
     this.productService.getProducts().subscribe({
       next: (data: any[]) => this.products.set(data),
       error: (err: any) => console.error('Erreur API :', err),
     });
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      this.currentUser = JSON.parse(savedUser);
+    }
+    }
   }
 }

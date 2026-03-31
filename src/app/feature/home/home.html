@@ -1,9 +1,9 @@
-@if(?token){
+@if (currentUser && currentUser.token){
 
   <div class="dashboard">
 
-    @if(?token.user){
-        
+    @if (currentUser.id){
+
       <div class="products-grid-user">
         @for (item of products(); track item.id) {
           <div class="product" [routerLink]="['/product-details', item.id]">
