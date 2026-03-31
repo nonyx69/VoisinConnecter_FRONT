@@ -58,6 +58,7 @@ export class AuthService {
           localStorage.setItem('auth_token', response.result.token);
           localStorage.setItem('auth_user', JSON.stringify(response.result));
           this.userSubject.next(response.result);
+          console.log(response.result);
         }
       }),
     );
