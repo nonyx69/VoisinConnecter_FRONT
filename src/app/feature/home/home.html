@@ -6,8 +6,8 @@
 
       <div class="products-grid-user">
         @for (item of products(); track item.id) {
-          <div class="product" [routerLink]="['/product-details', item.id]">
-            <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+          <div class="product" [routerLink]="['/product', item.id]">
+            <h3>{{ item.title || 'Sans titre' }}</h3>
             <p>{{ item.description || 'Pas de description' }}</p>
           </div>
         }
@@ -38,15 +38,15 @@
   </div>
 }
 
-@else(){
+
   <div class="container">
 
     <div class="products-grid">
       @for (item of products(); track item.id) {
-        <div class="product" [routerLink]="['/product-details', item.id]">
-          <h3>{{ item.title ||'Sans titre' }}</h3>
+        <a class="product" [routerLink]="['/product', item.id]">
+          <h3>{{ item.title || 'Sans titre' }}</h3>
           <p>{{ item.description || 'Pas de description' }}</p>
-        </div>
+        </a>
       }
     </div>
 
@@ -54,5 +54,5 @@
       <a routerLink="/all-products">voir plus</a>
     </div>
   </div>
-}
+
 

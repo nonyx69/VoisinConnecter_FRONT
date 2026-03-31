@@ -8,7 +8,7 @@ import { Admin } from './feature/admin/admin/admin';
 
 export const routes: Routes = [
   { path: '', component: Home },
-  { path: 'product', component: Product },
+  { path: 'product/:id', component: Product },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'profil', component: Profil },

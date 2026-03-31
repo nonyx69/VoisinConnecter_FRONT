@@ -1,24 +1,34 @@
-import { Injectable, inject, Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { RouterLink } from '@angular/router';
-import { environment } from '../../app';
-import { ApiReponse } from '../../shared/models/api-reponse';
+// Exemple d'import dans tes composants
+import { ProductModel } from '../../shared/models/product.model';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-product',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, RouterLink],
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
-
-@Injectable({ providedIn: 'root' })
-export class Product {
+export class Product implements OnInit {
+  private route = inject(ActivatedRoute);
   private http = inject(HttpClient);
-  private apiUrl = environment.apiUrl;
 
-  getProducts(): Observable<ApiReponse<any[]>> {
-    return this.http.get<ApiReponse<any[]>>(this.apiUrl + '/annonce/getAll');
+  // On utilise l'interface pour typer le signal
+  item = signal<ProductModel | null>(null);
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (id) {
+      this.http.get<ProductModel>(`http://localhost:8000/annonce/${id}`).subscribe({
+        next: (data) => {
+          this.item.set(data);
+        },
+        error: (err) => console.error('Erreur API :', err),
+      });
+    }
   }
 }

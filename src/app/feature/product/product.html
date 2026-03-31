@@ -1,4 +1,34 @@
-<p>product.service works!</p>
-<div class="product" [routerLink]="['/product-details']">
-  <h3>Bonjour</h3>
+<div class="container">
+  @if (item(); as product) {
+    <div class="product-detail-card">
+      <button routerLink="/" class="btn-back">← Retour</button>
+
+      <h1>{{ product.title }}</h1>
+      <span class="badge">{{ product.category }}</span>
+
+      <div class="description-box">
+        <h3>Description de l'annonce</h3>
+        <p>{{ product.description }}</p>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail-item">
+          <strong>Rémunération :</strong>
+          <span>{{ product.remuneration }} €</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>Postée le :</strong>
+          <span>{{ product.creation_date | date:'shortDate' }}</span>
+        </div>
+
+        <div class="detail-item">
+          <strong>ID Utilisateur :</strong>
+          <span>#{{ product.user_annonce_id }}</span>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="loader">Chargement des données...</div>
+  }
 </div>
