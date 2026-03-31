@@ -8,5 +8,4 @@ export interface admin {
 	createdAt: Date;
 	token: string;
 	tokenCreatedAt: Date;
-
-} 
+}

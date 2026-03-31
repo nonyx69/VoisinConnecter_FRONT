@@ -1,6 +1,7 @@
 <header>
   <nav class="navbar">
     <div class="nav-brand" routerLink="/">
+      <!-- <img class="logo" src="../public/Logo_VoisinConnecter.jpg" alt="LOGO des Voisins Connecté"> --> <!-- Choisir une Image-->
       <div class="brand-text"><h1>{{ title() }}</h1></div>
     </div>
 
@@ -16,6 +17,7 @@
           <a routerLink="/admin" routerLinkActive="active"><b> Admin </b></a>
         } @else {
           <a routerLink="/user" routerLinkActive="active"><b> {{user.Nom}} {{user.prenom}}</b></a>
+          <a (click)="logOut()" style="cursor:pointer"><b>Déconnexion</b></a>
         }
       } @else {
         <a routerLink="/login"><b>Connexion</b></a>

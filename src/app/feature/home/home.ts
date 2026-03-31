@@ -21,9 +21,11 @@ export class Home implements OnInit {
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.productService.getProducts().subscribe({
-        next: (data: any[]) => this.products.set(data),
+        next: (data) => this.products.set(data.results),
         error: (err: any) => console.error('Erreur API :', err),
       });
+
+
       const savedUser = localStorage.getItem('user');
       if (savedUser) {
         this.currentUser = JSON.parse(savedUser);

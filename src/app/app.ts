@@ -12,10 +12,10 @@ import { AsyncPipe } from '@angular/common';
 })
 export class App {
   protected readonly title = signal('VoisinConnecter_API');
-
   constructor(public authService: AuthService) {}
-}
 
+  logOut(){this.authService.logout();}
+}
 
 
 // Variable GLOBAL

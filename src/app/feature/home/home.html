@@ -15,7 +15,7 @@
     }
 
     <div class="lien-dashboard-user">
-      <a routerLink="/dashboard">mes annonces</a>
+      <a routerLink="/dashboard">mes annonces</a>ng
     </div>
 
   </div>
@@ -26,7 +26,7 @@
     <div class="products-grid">
       @for (item of products(); track item.id) {
         <div class="product" [routerLink]="['/product-details', item.id]">
-          <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+          <h3>{{ item.title || 'Sans titre' }}</h3>
           <p>{{ item.description || 'Pas de description' }}</p>
         </div>
       }
@@ -44,7 +44,7 @@
     <div class="products-grid">
       @for (item of products(); track item.id) {
         <div class="product" [routerLink]="['/product-details', item.id]">
-          <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+          <h3>{{ item.title ||'Sans titre' }}</h3>
           <p>{{ item.description || 'Pas de description' }}</p>
         </div>
       }

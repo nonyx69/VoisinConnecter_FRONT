@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RouterLink } from '@angular/router';
 import { environment } from '../../app';
+import { ApiReponse } from '../../shared/models/api-reponse';
 
 @Component({
   selector: 'app-home',
@@ -11,12 +12,13 @@ import { environment } from '../../app';
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
+
 @Injectable({ providedIn: 'root' })
 export class Product {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  getProducts(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getProducts(): Observable<ApiReponse<any[]>> {
+    return this.http.get<ApiReponse<any[]>>(this.apiUrl + '/annonce/getAll');
   }
 }
