@@ -48,17 +48,16 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}auth/register`, userData);
+    return this.http.post<any>(`${this.apiUrl}/auth/register`, userData);
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}auth/login`, credentials).pipe(
+    return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials).pipe(
       tap((response) => {
         if (response.status === 'ok' && isPlatformBrowser(this.platformId)) {
           localStorage.setItem('auth_token', response.result.token);
           localStorage.setItem('auth_user', JSON.stringify(response.result));
           this.userSubject.next(response.result);
-          this.router.navigate(['/user']);
         }
       }),
     );

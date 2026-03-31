@@ -11,11 +11,13 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class Register {
   user = {
-    Nom: '',
+    nom: '',
     prenom: '',
     email: '',
     password: '',
   };
+
+
 
   showPassword = false;
   passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{10,}$';
@@ -30,6 +32,7 @@ export class Register {
   }
 
   onRegister() {
+    console.log(this.user);
     this.authService.register(this.user).subscribe({
       next: (res: any) => {
          alert('Compte créé avec succès !');

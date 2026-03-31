@@ -12,6 +12,7 @@ import { User } from '../../../shared/models/user.model';
   styleUrls: ['./login.css'],
 })
 export class Login {
+
   credentials = { email: '', password: '' };
   showPassword = false;
   passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{10,}$';
@@ -39,10 +40,6 @@ export class Login {
           }
         });
       },
-      error: (err) => {
-        alert(err.error?.message || 'Erreur lors de la connexion');
-      },
     });
-    alert('Mot de passe ou identifiant incorrect');
   }
 }

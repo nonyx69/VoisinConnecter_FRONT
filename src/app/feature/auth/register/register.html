@@ -3,9 +3,10 @@
 <form #registerForm="ngForm" (ngSubmit)="onRegister()">
   <div>
     <label> Nom :</label><br>
-    <input type="text" id="nom" [(ngModel)]="user.Nom" name="nom" #nom="ngModel" required />
+    <input type="text" id="nom" [(ngModel)]="user.nom" name="nom" #nom="ngModel" required />
       @if (nom.invalid && nom.touched){
         <p style="color: red; font-size: 0.8em;">Nom requis</p>
+        console.log("");
       }
   </div>
 
