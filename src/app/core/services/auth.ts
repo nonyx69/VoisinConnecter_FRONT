@@ -8,7 +8,7 @@ import { environment } from '../../app';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = environment.apiUrl; 
+  private apiUrl = environment.apiUrl;
 
   private userSubject = new BehaviorSubject<User | null>(null);
   public user$ = this.userSubject.asObservable();
@@ -48,11 +48,11 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}user/sign`, userData);
+    return this.http.post<any>(`${this.apiUrl}auth/register`, userData);
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}user/login`, credentials).pipe(
+    return this.http.post<any>(`${this.apiUrl}auth/login`, credentials).pipe(
       tap((response) => {
         if (response.status === 'ok' && isPlatformBrowser(this.platformId)) {
           localStorage.setItem('auth_token', response.result.token);
