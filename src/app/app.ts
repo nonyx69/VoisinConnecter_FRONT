@@ -11,3 +11,15 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 export class App {
   protected readonly title = signal('VoisinConnecter_API');
 }
+
+
+
+
+
+// Variable GLOBAL
+
+// Pour le dev :
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:8000',
+};
