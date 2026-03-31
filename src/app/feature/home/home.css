@@ -12,7 +12,24 @@
   flex-direction: column;
 }
 
+.dashboard{  
+  width: 100%;
+  height: 100%;
+  background-color: #767676;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
 .products-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5%;
+  width: 100%;
+}
+
+.products-grid-user {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -41,7 +58,28 @@
   color: white;
   font-weight: bold;
 }
+
+.lien-dashboard-user {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+.lien-dashboard-user a {
+  color: white;
+  font-weight: bold;
+}
+
 .products-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+}
+
+.products-grid-user {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

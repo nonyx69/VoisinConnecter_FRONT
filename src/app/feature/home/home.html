@@ -1,14 +1,58 @@
-<div class="container">
-  <div class="products-grid">
-    @for (item of products(); track item.id) {
-      <div class="product" [routerLink]="['/product-details', item.id]">
-        <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
-        <p>{{ item.description || 'Pas de description' }}</p>
+@if(?token){
+
+  <div class="dashboard">
+
+    @if(?token.user){
+        
+      <div class="products-grid-user">
+        @for (item of products(); track item.id) {
+          <div class="product" [routerLink]="['/product-details', item.id]">
+            <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+            <p>{{ item.description || 'Pas de description' }}</p>
+          </div>
+        }
       </div>
     }
+
+    <div class="lien-dashboard-user">
+      <a routerLink="/dashboard">mes annonces</a>
+    </div>
+
   </div>
 
-  <div class="lien-annonce">
-    <a routerLink="/all-products">voir plus</a>
+
+  <div class="container">
+
+    <div class="products-grid">
+      @for (item of products(); track item.id) {
+        <div class="product" [routerLink]="['/product-details', item.id]">
+          <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+          <p>{{ item.description || 'Pas de description' }}</p>
+        </div>
+      }
+    </div>
+
+    <div class="lien-annonce">
+      <a routerLink="/all-products">voir plus</a>
+    </div>
   </div>
-</div>
+}
+
+@else(){
+  <div class="container">
+
+    <div class="products-grid">
+      @for (item of products(); track item.id) {
+        <div class="product" [routerLink]="['/product-details', item.id]">
+          <h3>{{ item.title || item.name || 'Sans titre' }}</h3> // a changer
+          <p>{{ item.description || 'Pas de description' }}</p>
+        </div>
+      }
+    </div>
+
+    <div class="lien-annonce">
+      <a routerLink="/all-products">voir plus</a>
+    </div>
+  </div>
+}
+
