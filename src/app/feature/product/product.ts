@@ -8,8 +8,8 @@ import { environment } from '../../app';
   selector: 'app-home',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './home.html',
-  styleUrl: './home.css',
+  templateUrl: './product.html',
+  styleUrl: './product.css',
 })
 @Injectable({ providedIn: 'root' })
 export class Product {
