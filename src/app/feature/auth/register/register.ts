@@ -31,7 +31,7 @@ export class Register {
     this.showPassword = !this.showPassword;
   }
 
-  onRegister() {
+  onRegister() { /*
     console.log(this.user);
     this.authService.register(this.user).subscribe({
       next: (res: any) => {
@@ -42,6 +42,6 @@ export class Register {
         console.log(err);
         alert(err.error?.message || 'Erreur lors de l inscription');
       },
-    });
+    });*/
   }
 }

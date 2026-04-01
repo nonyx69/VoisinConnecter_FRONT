@@ -1,75 +1,32 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { Router } from '@angular/router';
+import { Injectable, signal } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { App } from '../../app';
+import { ApiReponse } from '../../shared/models/api-reponse';
 import { User } from '../../shared/models/user.model';
-import { environment } from '../../app';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  public currentUserSelect = signal<User>(null);
 
-  private userSubject = new BehaviorSubject<User | null>(null);
-  public user$ = this.userSubject.asObservable();
+  constructor(private http: HttpClient) {}
 
-  constructor(
-    private http: HttpClient,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router,
-  ) {
-    if (isPlatformBrowser(this.platformId)) {
-      const user = this.getUserFromStorage();
-      if (user) {
-        this.userSubject.next(user);
-      }
-    }
+  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  options = { headers: this.headers };
+
+  updateUser(user: User) {
+    this.currentUserSelect.set(user);
   }
 
-  updateUser(updatedUser: any): void {
-    if (isPlatformBrowser(this.platformId)) {
-      // on met à jour le localstorage pour que les changements reste apres refresh
-      localStorage.setItem('auth_user', JSON.stringify(updatedUser));
-    }
-    this.userSubject.next(updatedUser);
+  login(bodyNoJson: any, apiUrl: string): Observable<ApiReponse> {
+    const body = JSON.stringify(bodyNoJson);
+
+    return this.http.post<ApiReponse>(apiUrl + '/auth/login', body, this.options);
   }
 
-  private getUserFromStorage(): User | null {
-    if (isPlatformBrowser(this.platformId)) {
-      const user = localStorage.getItem('auth_user');
-      try {
-        return user ? JSON.parse(user) : null;
-      } catch (e) {
-        console.error('Erreur de parsing du user dans le stockage', e);
-        return null;
-      }
-    }
-    return null;
-  }
+  register() {}
 
-  register(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/register`, userData);
-  }
-
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/auth/login`, credentials).pipe(
-      tap((response) => {
-        if (response.status === 'ok' && isPlatformBrowser(this.platformId)) {
-          localStorage.setItem('auth_token', response.result.token);
-          localStorage.setItem('auth_user', JSON.stringify(response.result));
-          this.userSubject.next(response.result);
-          console.log(response.result);
-        }
-      }),
-    );
-  }
-
-  logout() {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('auth_user');
-    }
-    this.userSubject.next(null);
-    this.router.navigate(['/']);
+  token(apiUrl: string, options: { headers: HttpHeaders }): Observable<ApiReponse> {
+    return this.http.get<ApiReponse>(apiUrl + '/user/token', options);
   }
 }

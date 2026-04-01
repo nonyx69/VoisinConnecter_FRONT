@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth';
-import { User } from '../../../shared/models/user.model';
+import { App } from '../../../app';
 
 @Component({
   selector: 'app-login',
@@ -13,33 +13,20 @@ import { User } from '../../../shared/models/user.model';
 })
 export class Login {
 
-  credentials = { email: '', password: '' };
-  showPassword = false;
-  passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{10,}$';
-
   constructor(
     public authService: AuthService,
     private router: Router,
-  ) {}
+    public app:App
+  ) { }
 
-  togglePassword() {
-    this.showPassword = !this.showPassword;
-  }
+  onLogin(form : NgForm) {
 
-  onLogin() {
-    this.authService.login(this.credentials).subscribe({
-      next: () => {
-        this.authService.user$.subscribe((user) => {
-          if (user) {
-            // VERIFICATION DES ROLES
-            if (user.role && user.role.includes('ROLE_ADMIN')) {
-              this.router.navigate(['/admin']);
-            } else {
-              this.router.navigate(['/user']);
-            }
-          }
-        });
-      },
-    });
+    let email = form.value.loginEmail;
+    let password = form.value.loginPassword;
+
+    if (email && password) {
+      this.app.login(email, password);
+    }
+
   }
 }

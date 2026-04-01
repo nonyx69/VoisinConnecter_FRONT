@@ -23,7 +23,7 @@ export class Home implements OnInit {
     if (isPlatformBrowser(this.platformId)) {
       this.http.get<any>('http://localhost:8000/annonce/getAll').subscribe({
         next: (data) => {
-          console.log('Données reçues :', data);
+          //console.log('Données reçues :', data);
           const results = Array.isArray(data) ? data : data.results || [];
           this.products.set(results);
         },

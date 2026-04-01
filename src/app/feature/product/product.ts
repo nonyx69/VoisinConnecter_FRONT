@@ -2,7 +2,9 @@ import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-// Exemple d'import dans tes composants
+import { ProductService } from '../../core/services/product';
+import { App } from '../../app';
+import { ApiReponse } from '../../shared/models/api-reponse';
 import { ProductModel } from '../../shared/models/product.model';
 
 @Component({
@@ -13,22 +15,30 @@ import { ProductModel } from '../../shared/models/product.model';
   styleUrl: './product.css',
 })
 export class Product implements OnInit {
-  private route = inject(ActivatedRoute);
-  private http = inject(HttpClient);
 
-  // On utilise l'interface pour typer le signal
-  item = signal<ProductModel | null>(null);
+  productSelected = signal<ProductModel>(null);
+
+  constructor(
+    private route: ActivatedRoute,
+    private productService: ProductService,
+    private app:App
+  ) {}
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.http.get<ProductModel>(`http://localhost:8000/annonce/get/${id}`).subscribe({
-        next: (data) => {
-          this.item.set(data);
-        },
-        error: (err) => console.error('Erreur API :', err),
+
+      this.productService.getOne(id, this.app.urlAPI(), this.app.createCORS()).subscribe((responseProductOne: ApiReponse) => {
+
+          if (responseProductOne.status == "ok") {
+
+            this.productSelected.set(responseProductOne['results']);
+
+          }
+
       });
+
     }
   }
 }

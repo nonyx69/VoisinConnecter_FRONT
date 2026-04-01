@@ -1,5 +1,5 @@
-export interface ApiReponse<Table> {
+export interface ApiReponse {
   status: string;
   mesage: string;
-  results: Table;
+  result: any|undefined;
 }
