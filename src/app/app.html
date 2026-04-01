@@ -16,7 +16,7 @@
         @if(user.role && user.role.includes('ROLE_ADMIN')) {
           <a routerLink="/admin" routerLinkActive="active"><b> Admin </b></a>
         } @else {
-          <a routerLink="/profil" routerLinkActive="active"><b> {{user.Nom}} {{user.prenom}}</b></a>
+          <a routerLink="/user" routerLinkActive="active"><b> {{user.Nom}} {{user.prenom}}</b></a>
         }
         <a (click)="logOut()" style="cursor:pointer"><b>Déconnexion</b></a>
 

@@ -23,7 +23,7 @@ export class Product implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.http.get<ProductModel>(`http://localhost:8000/annonce/${id}`).subscribe({
+      this.http.get<ProductModel>(`http://localhost:8000/annonce/get/${id}`).subscribe({
         next: (data) => {
           this.item.set(data);
         },
