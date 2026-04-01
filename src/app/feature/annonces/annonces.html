@@ -1,0 +1,19 @@
+<div class="filter-container">
+  <h3>Catégories</h3>
+  <button (click)="All()">Tous</button>
+  <button (click)="Filtre('Bricolage')"> Bricolage</button>
+  <button (click)="Filtre('Jardinage')"> Jardinage</button>
+  <button (click)="Filtre('Informatique')"> Informatique</button>
+</div>
+
+<div class="container">
+
+  <div class="products-grid">
+    @for (item of products(); track item.id) {
+      <a class="product">
+        <h3>{{ item.title || 'Sans titre' }}</h3>
+        <p>{{ item.description || 'Pas de description' }}</p>
+      </a>
+    }
+  </div>
+</div>
