@@ -29,6 +29,8 @@ export class App {
               private cookiesService: CookieService,
               private router: Router,) {
 
+    console.log("salut");
+
     const cookieToken:string = this.cookiesService.get('voisinConnecterToken');
 
     if (cookieToken) {
