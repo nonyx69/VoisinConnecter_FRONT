@@ -1,19 +1,37 @@
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { OnInit, signal } from '@angular/core';
 import { User } from '../../../shared/models/user.model';
-// import { ProductModel } from '../../../shared/models/product.model';
+import { Component  } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { App } from '../../../app';
+
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
 export class Profil implements OnInit {
+  pannelProfile = signal<User>(null);
+
+  constructor(
+    private route: ActivatedRoute,
+    private userService: User,
+    private app: App,
+  ) {}
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
-  }
 
-  private platformId = inject(PLATFORM_ID);
- // private productService = inject(Product);
-  currentUser: User | null = null;
+    function openPannelProfil() {}
+
+    function saveProfil() {}
+  }
 }
+
+
+
+
+
+
