@@ -4,7 +4,7 @@ import { Product } from './feature/product/product';
 import { Login } from './feature/auth/login/login';
 import { Register } from './feature/auth/register/register';
 import { Profil } from './feature/profil/profil';
-import { Admin } from './feature/admin/admin/admin';
+import { Admin } from './feature/users/users/users';
 
 export const routes: Routes = [
   { path: '', component: Home },
