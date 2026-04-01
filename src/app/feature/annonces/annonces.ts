@@ -33,6 +33,9 @@ export class Annonces {
       if (reponseProductfiltre.status == "success") {
         this.products.set(reponseProductfiltre.result);
       }
+      else{
+        console.log(reponseProductfiltre.status);
+      }
     })
   }
 

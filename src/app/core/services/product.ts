@@ -18,7 +18,7 @@ export class ProductService {
   }
 
   filterBy(productCategory:string, apiUrl:string, options: {headers: HttpHeaders}): Observable<ApiReponse>{
-    return this.http.get<ApiReponse>(apiUrl + '/annonce/filterBy/' + productCategory, options);
+    return this.http.get<ApiReponse>(apiUrl + '/annonce/category/' + productCategory, options);
   }
 
 }
