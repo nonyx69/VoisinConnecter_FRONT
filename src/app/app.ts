@@ -112,7 +112,5 @@ export class App {
     this.currentUser = null;
     this.currentToken = null;
     this.cookiesService.delete('voisinConnecterToken');
-
-    //Probleme -> Refresh de la page Obligatoire
   }
 }
