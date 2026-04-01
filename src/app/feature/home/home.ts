@@ -4,6 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../shared/models/user.model';
 import { ProductModel } from '../../shared/models/product.model';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Product } from '../product/product';
+import { ProductService } from '../../core/services/product';
+import { ApiReponse } from '../../shared/models/api-reponse';
+import { App } from '../../app';
 
 @Component({
   selector: 'app-home',
@@ -16,24 +20,17 @@ export class Home implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private http = inject(HttpClient);
 
+  constructor(private productService: ProductService,
+              private app: App) {}
+
   currentUser: User | null = null;
   protected products = signal<ProductModel[]>([]);
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.http.get<any>('http://localhost:8000/annonce/getAll').subscribe({
-        next: (data) => {
-          //console.log('Données reçues :', data);
-          const results = Array.isArray(data) ? data : data.results || [];
-          this.products.set(results);
-        },
-        error: (err: any) => console.error('Erreur API :', err),
-      });
-
-      const savedUser = localStorage.getItem('user');
-      if (savedUser) {
-        this.currentUser = JSON.parse(savedUser);
+    this.productService.getAll(this.app.urlAPI(), this.app.createCORS()).subscribe((reponseProductAll ) => {
+      if(reponseProductAll.status == "success") {
+        this.products.set(reponseProductAll.result)
       }
-    }
+    });
   }
 }

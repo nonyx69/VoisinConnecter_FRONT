@@ -33,10 +33,9 @@ export class Product implements OnInit {
 
           if (responseProductOne.status == "ok") {
 
-            this.productSelected.set(responseProductOne['results']);
+            this.productSelected.set(responseProductOne.result);
 
           }
-
       });
 
     }

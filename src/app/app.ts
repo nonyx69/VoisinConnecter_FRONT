@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import {AuthService} from './core/services/auth';
 import { Navbar } from './feature/navbar/navbar';
 import { ApiReponse } from './shared/models/api-reponse';
@@ -26,7 +26,8 @@ export class App {
   public currentToken: string|undefined = null;
 
   constructor(public authService: AuthService,
-              private cookiesService: CookieService) {
+              private cookiesService: CookieService,
+              private router: Router,) {
 
     const cookieToken:string = this.cookiesService.get('voisinConnecterToken');
 
@@ -95,6 +96,8 @@ export class App {
         this.cookiesService.set('voisinConnecterToken', this.currentToken);
         this.authService.updateUser(this.currentUser);
 
+        this.router.navigate(['/']);
+
       } else if (reponseLogin.status == "error"){
         alert("MARCHE PAS")
       }
@@ -109,5 +112,7 @@ export class App {
     this.currentUser = null;
     this.currentToken = null;
     this.cookiesService.delete('voisinConnecterToken');
+
+    //Probleme -> Refresh de la page Obligatoire
   }
 }

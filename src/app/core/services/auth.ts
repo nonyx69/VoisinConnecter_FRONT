@@ -20,7 +20,6 @@ export class AuthService {
 
   login(bodyNoJson: any, apiUrl: string): Observable<ApiReponse> {
     const body = JSON.stringify(bodyNoJson);
-
     return this.http.post<ApiReponse>(apiUrl + '/auth/login', body, this.options);
   }
 

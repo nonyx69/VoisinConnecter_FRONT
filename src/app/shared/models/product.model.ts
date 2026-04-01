@@ -7,7 +7,7 @@ export interface ProductModel {
   title: string;
   description: string;
   remuneration: number;
-  date_active: Date;
+  date_active: string;
   creation_date: Date;
   category: string;
   user_annonce_id: number;
