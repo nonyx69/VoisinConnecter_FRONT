@@ -1,5 +1,5 @@
 import { OnInit, signal } from '@angular/core';
-import { User } from '../../../shared/models/user.model';
+import { User } from '../../../core/services/user';
 import { Component  } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,7 +8,7 @@ import { App } from '../../../app';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
