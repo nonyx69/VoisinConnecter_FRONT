@@ -10,7 +10,7 @@
 
   <div class="products-grid">
     @for (item of products(); track item.id) {
-      <a class="product">
+      <a class="product" [routerLink]="['/product', item.id]">
         <h3>{{ item.title || 'Sans titre' }}</h3>
         <p>{{ item.description || 'Pas de description' }}</p>
       </a>

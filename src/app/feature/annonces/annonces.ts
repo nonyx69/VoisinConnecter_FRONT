@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { App } from '../../app';
 import { ProductService } from '../../core/services/product';
 import { ProductModel} from '../../shared/models/product.model';
 
 @Component({
   selector: 'app-annonces',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './annonces.html',
   styleUrl: './annonces.css',
 })
@@ -32,6 +32,9 @@ export class Annonces {
     this.productService.filterBy(category, this.app.urlAPI(), this.app.createCORS()).subscribe(reponseProductfiltre => {
       if (reponseProductfiltre.status == "success") {
         this.products.set(reponseProductfiltre.result);
+      }
+      else{
+        console.log(reponseProductfiltre.status);
       }
     })
   }
