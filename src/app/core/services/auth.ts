@@ -24,7 +24,10 @@ export class AuthService {
     return this.http.post<ApiReponse>(apiUrl + '/auth/login', body, this.options);
   }
 
-  register() {}
+  register(bodyNoJson: any, apiUrl: string): Observable<ApiReponse> {
+    const body = JSON.stringify(bodyNoJson);
+    return this.http.post<ApiReponse>(apiUrl + '/auth/register', body, this.options);
+  }
 
   token(apiUrl: string, options: { headers: HttpHeaders }): Observable<ApiReponse> {
     return this.http.get<ApiReponse>(apiUrl + '/user/token', options);
