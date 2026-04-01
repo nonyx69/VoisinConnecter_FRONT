@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { App } from '../../app';
 import { ProductService } from '../../core/services/product';
 import { ProductModel} from '../../shared/models/product.model';
 
 @Component({
   selector: 'app-annonces',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './annonces.html',
   styleUrl: './annonces.css',
 })
