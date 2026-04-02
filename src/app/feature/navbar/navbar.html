@@ -1,16 +1,16 @@
 <header>
   <nav class="navbar">
-    <div class="nav-brand" routerLink="/">
-      <!-- <img class="logo" src="../public/Logo_VoisinConnecter.jpg" alt="LOGO des Voisins Connecté"> --> <!-- Choisir une Image-->
-      <div class="brand-text"><h1> Voisins Connecter </h1></div>
+    <div class="nav-brand">
+      <img class="logo" src="favicon.ico" alt="LOGO des Voisins Connecté">
+      <div class="brand-text"><h1> Voisins Connectés</h1></div>
     </div>
 
     <div class="nav-links">
-      <a routerLink="/" ><b>Accueil</b></a>
-      <a routerLink="/annonces"><b>Annonces</b></a>
+      <a routerLink="/" ><b>🏠 Accueil</b></a>
+      <a routerLink="/annonces"><b>🔎 Annonces</b></a>
     </div>
 
-  <div class="nav-connexion">
+  <div class="nav-links">
       @if(authService.currentUserSelect()){
 
         @if(authService.currentUserSelect().role && authService.currentUserSelect().role.includes('ROLE_ADMIN')) {
@@ -18,7 +18,7 @@
         } @else {
           <a routerLink="/user" routerLinkActive="active"><b> {{authService.currentUserSelect().Nom}} {{authService.currentUserSelect().prenom}}</b></a>
         }
-        <a (click)="app.logOut()" style="cursor:pointer"><b>Déconnexion</b></a>
+        <a (click)="app.logOut()" style="cursor:pointer"><b> Déconnexion</b></a>
 
       } @else {
         <a routerLink="/login"><b>Connexion</b></a>

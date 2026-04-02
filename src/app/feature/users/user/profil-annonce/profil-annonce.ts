@@ -55,7 +55,7 @@ export class ProfilAnnonce implements OnInit {
         (reponseProductUser: ApiReponse) => {
           if (reponseProductUser.status == 'success') {
             this.selectedProduct = reponseProductUser.result;
-            this.cd.detectChanges(); //Force un Reload avec l'appel plus haut
+            this.cd.detectChanges();
           }
         }
       );

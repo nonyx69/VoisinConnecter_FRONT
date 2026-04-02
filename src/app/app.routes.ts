@@ -4,7 +4,7 @@ import { Product } from './feature/product/product';
 import { Annonces} from './feature/annonces/annonces';
 import { Login } from './feature/auth/login/login';
 import { Register } from './feature/auth/register/register';
-import { Profil } from './feature/users/user/user';
+import { User } from './feature/users/user/user';
 import { AdminComponent } from './feature/users/admin/admin';
 import { Err } from './feature/err/err';
 
@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: 'annonces', component: Annonces },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  { path: 'user', component: Profil },
+  { path: 'user', component: User },
   { path: 'admin', component: AdminComponent },
   { path: '**', component: Err },
 ];

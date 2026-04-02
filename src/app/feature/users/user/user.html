@@ -1,21 +1,51 @@
-
 @if(authService.currentUserSelect()){
   <div class="content-wrapper">
     <div class="avatar-section">
       <img [src]="" alt="Photo de profil" class="avatar-img">
       <h2>{{ authService.currentUserSelect().Nom || 'Sans Nom' }} </h2>
       <p><strong>Email :</strong> {{ authService.currentUserSelect().email || 'Sans email' }}  </p>
+      <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier </button>
     </div>
 
+    @if(this.isEditModalOpen){
+      <div class="input-group">
+        <div class="inputOne">
+          <label>Nom : </label>
+          <input type="text" [(ngModel)]="tempNom" placeholder="Parle-nous de toi...">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Prenom : </label>
+          <input type="text" [(ngModel)]="tempprenom" placeholder="Parle-nous de toi...">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Email: </label>
+          <input type="email" [(ngModel)]="tempemail" placeholder="Parle-nous de toi...">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Photo de Profile: </label>
+          <input type="text" [(ngModel)]="tempphotoProfil" placeholder="Parle-nous de toi...">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Mot de passe : </label>
+          <input type="password" [(ngModel)]="temppassword" placeholder="Parle-nous de toi...">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="isEditModalOpen = false">Annuler</button>
+        <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
+      </div>
+    }
     <main class="info-card">
-
       <app-profil-annonce></app-profil-annonce>
-
     </main>
   </div>
 } @else {
-  <a routerLink="/login"><b>Connexion</b></a>
-  <a routerLink="/register"><b>Inscription</b></a>
+  <h1>ERROR 404</h1>
 }
 
 
