@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService, User, StatsData } from '../../../core/services/admin';
+import { Admin, StatsData } from '../../../shared/models/admin.model';
+import { App } from '../../../app';
+import { AdminService } from '../../../core/services/admin';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-admin',
@@ -12,33 +15,43 @@ export class AdminComponent implements OnInit {
   filteredUsers: User[] = [];
   searchQuery: string = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    private userService: User,
+    private StatsData: StatsData,
+    private app: App,
+  ) {}
 
   ngOnInit(): void {
+
     this.loadStats();
     this.loadUsers();
   }
 
   loadStats(): void {
     this.adminService.getStats().subscribe({
-      next: (res) => {
-        if (res.status === 'ok' && res.result) {
-          this.stats = res.result;
+      next: (response) => {
+        if (response.result) {
+          this.stats = response.result;
         }
       },
-      error: (err) => console.error('Erreur lors du chargement des statistiques', err),
+      error: (error) => {
+        console.error('Erreur lors de la récupération des statistiques', error);
+      }
     });
   }
 
   loadUsers(): void {
     this.adminService.getUsers().subscribe({
-      next: (res) => {
-        if (res.status === 'success' && res.result) {
-          this.users = res.result;
+      next: (response) => {
+        if (response.result) {
+          this.users = response.result;
           this.filteredUsers = [...this.users];
         }
       },
-      error: (err) => console.error('Erreur lors du chargement des utilisateurs', err),
+      error: (error) => {
+        console.error('Erreur lors de la récupération des utilisateurs', error);
+      }
     });
   }
 
@@ -50,28 +63,23 @@ export class AdminComponent implements OnInit {
       return;
     }
 
-    this.filteredUsers = this.users.filter(
-      (user) =>
-        user.id.toString().includes(query) ||
-        (user.nom && user.nom.toLowerCase().includes(query)) ||
-        (user.prenom && user.prenom.toLowerCase().includes(query)),
+    this.filteredUsers = this.users.filter(user =>
+      user.Nom.toLowerCase().includes(query) ||
+      user.prenom.toLowerCase().includes(query) ||
+      user.email.toLowerCase().includes(query)
     );
   }
 
   deleteUser(id: number): void {
-    if (confirm('Es-tu sûr de vouloir supprimer définitivement cet utilisateur ?')) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       this.adminService.deleteUser(id).subscribe({
-        next: (res) => {
-          if (res.status === 'ok') {
-            this.users = this.users.filter((u) => u.id !== id);
-            this.filterUsers();
-
-            if (this.stats) {
-              this.stats.totalUsers--;
-            }
-          }
+        next: () => {
+          this.users = this.users.filter(user => user.id !== id);
+          this.filterUsers();
         },
-        error: (err) => console.error("Erreur lors de la suppression de l'utilisateur", err),
+        error: (error) => {
+          console.error('Erreur lors de la suppression', error);
+        }
       });
     }
   }

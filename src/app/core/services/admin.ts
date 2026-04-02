@@ -1,33 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Admin, ApiResponse, StatsData } from '../../shared/models/admin.model';
+import { User } from '../../shared/models/user.model';
 
-export interface ApiResponse<T = any> {
-  status: string;
-  message?: string;
-  result?: T;
-}
-
-export interface User {
-  id: number;
-  nom: string;
-  prenom: string;
-  email: string;
-  roles: string[];
-  photoProfil?: string;
-}
-
-export interface StatsData {
-  totalUsers: number;
-  totalAnnonces: number;
-  topCategory: string;
-}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl: string;
 
   constructor(private http: HttpClient) {}
 
@@ -56,9 +38,6 @@ export class AdminService {
   }
 
   deleteUser(id: number): Observable<ApiResponse<void>> {
-    return this.http.delete<ApiResponse<void>>(
-      `${this.apiUrl}/admin/user/${id}`,
-      this.getOptions(),
-    );
+    return this.http.delete<ApiResponse<void>>( `${this.apiUrl}/admin/user/${id}`, this.getOptions());
   }
 }
