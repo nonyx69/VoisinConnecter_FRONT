@@ -2,7 +2,7 @@
   <div class="dashboard">
     <h3>Mes Annonces</h3>
       <div class="products-grid-user">
-        @for (item of Userproduct(); track item.id) {
+        @for (item of Userproduct().slice(0, 6); track item.id) {
           <div class="product" [routerLink]="['/product', item.id]">
             <h3>{{ item.title || 'Sans titre' }}</h3>
             <p>{{ item.description || 'Pas de description' }}</p>
@@ -14,19 +14,18 @@
       <a routerLink="/user">mes annonces</a>
     </div>
   </div>
-
-
+  <br>
   <div class="container">
-  <h3>Les Annonces Récentes </h3>
-    <div class="products-grid">
-      @for (item of products(); track item.id) {
-        <div class="product" [routerLink]="['/product', item.id]">
-          <h3>{{ item.title || 'Sans titre' }}</h3>
-          <p>{{ item.description || 'Pas de description' }}</p>
-        </div>
+    <h3>Les Annonces Récentes </h3>
+      <div class="products-grid">
+        @for (item of products().slice(0, 3); track item.id) {
+          <div class="product" [routerLink]="['/product', item.id]">
+            <h3>{{ item.title || 'Sans titre' }}</h3>
+            <p>{{ item.description || 'Pas de description' }}</p>
+          </div>
       }
     </div>
-
+    <br>
     <div class="lien-annonce">
       <a routerLink="/annonces">voir plus</a>
     </div>
@@ -35,7 +34,7 @@
   <div class="container">
 
     <div class="products-grid">
-      @for (item of products(); track item.id) {
+      @for (item of products().slice(0, 3); track item.id) {
         <a class="product" [routerLink]="['/product', item.id]">
           <h3>{{ item.title || 'Sans titre' }}</h3>
           <p>{{ item.description || 'Pas de description' }}</p>
