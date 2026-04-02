@@ -1,14 +1,14 @@
 import { OnInit, signal } from '@angular/core';
 import { UserService } from '../../../core/services/user';
 import { Component  } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { App } from '../../../app';
 import { AuthService } from '../../../core/services/auth';
 import { ProfilAnnonce } from './profil-annonce/profil-annonce';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpHeaders } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ApiReponse } from '../../../shared/models/api-reponse';
 
 @Component({
   selector: 'app-user',
@@ -29,6 +29,7 @@ export class User implements OnInit {
     public authService: AuthService,
     public app: App,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {}
@@ -44,40 +45,27 @@ export class User implements OnInit {
   }
 
   saveProfil() {
-    const token = cookieStore.get('voisinConnecterToken');
+    const token = this.cookiesService.get('voisinConnecterToken');
     if (!token) return;
 
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    });
+    const upddateData = {
+      Nom: this.tempNom
+    }
 
+    var bodyJSON = {
+      "nom": upddateData.Nom
+    }
+  console.log(upddateData);
+    this.userService.update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token)).subscribe((reponseUpdateAPI: ApiReponse) => {
+      if (reponseUpdateAPI.status == "ok"){
+        alert("Mise à jour avec Success");
+        this.router.navigate(['/user']);
+      }
+    })
   }
-
-  const updatedData = {
-    Nom: this.tempNom,
-    prenom: this.tempprenom,
-    email: this.tempemail,
-    password: this.temppassword,
-    photoProfil: this.tempphotoProfil
-  };
-
-
 
   updateLocalData(p: string, value: string) {
     if (this.app.currentUser) this.app.currentUser[p] = value;
-  }
-
-  forkJoin([Nom]) {
-    next: () => {
-      const nom = this.tempNom.startsWith('data:');
-
-      this.updateLocalData('nom', this.tempNom);
-
-      this.authService.updateUser({ ...this.app.currentUser });
-      this.isEditModalOpen = false;
-      console.log('Profil mis à jour et synchroniser !');
-    };
   }
 
   updateProfil() {
