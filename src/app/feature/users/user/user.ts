@@ -28,15 +28,12 @@ export class User implements OnInit {
     private cookiesService: CookieService,
     public authService: AuthService,
     public app: App,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-
-    }
-
-    openEditModal() {
+  openEditModal() {
     const p = this.app.currentUser;
     this.tempNom = p.Nom || '';
     this.tempprenom = p.prenom || '';
@@ -44,18 +41,35 @@ export class User implements OnInit {
     this.temppassword = p.password || '';
     this.tempphotoProfil = p.photoProfil || '';
     this.isEditModalOpen = true;
-    }
-    saveProfil() {
-      const token = cookieStore.get('voisinConnecterToken');
-      if (!token) return;
+  }
 
-      const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
-    }
-    updateLocalData(p: string, value: string) {
-      if (this.app.currentUser) this.app.currentUser[p] = value;
-    }
+  saveProfil() {
+    const token = cookieStore.get('voisinConnecterToken');
+    if (!token) return;
 
-    forkJoin([Nom]){ next: () => {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+  }
+
+  const updatedData = {
+    Nom: this.tempNom,
+    prenom: this.tempprenom,
+    email: this.tempemail,
+    password: this.temppassword,
+    photoProfil: this.tempphotoProfil
+  };
+
+
+
+  updateLocalData(p: string, value: string) {
+    if (this.app.currentUser) this.app.currentUser[p] = value;
+  }
+
+  forkJoin([Nom]) {
+    next: () => {
       const nom = this.tempNom.startsWith('data:');
 
       this.updateLocalData('nom', this.tempNom);
@@ -63,13 +77,12 @@ export class User implements OnInit {
       this.authService.updateUser({ ...this.app.currentUser });
       this.isEditModalOpen = false;
       console.log('Profil mis à jour et synchroniser !');
-    }
+    };
   }
 
-      updateProfil() {
-        this.updateLocalData('Nom', this.tempNom);
-      }
-    // creation annonce
-
+  updateProfil() {
+    this.updateLocalData('Nom', this.tempNom);
+  }
+  // creation annonce
 }
 
