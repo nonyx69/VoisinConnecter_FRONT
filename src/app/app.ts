@@ -85,7 +85,6 @@ export class App {
       "email": email,
       "password": mdp,
     }
-
     this.authService.login(bodyNoJson, this.urlAPI()).subscribe((reponseLogin: ApiReponse) => {
 
       if(reponseLogin.status == "ok"){

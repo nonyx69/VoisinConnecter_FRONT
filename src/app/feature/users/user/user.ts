@@ -1,4 +1,4 @@
-import { OnInit, signal } from '@angular/core';
+import { ChangeDetectorRef, OnInit, signal } from '@angular/core';
 import { UserService } from '../../../core/services/user';
 import { Component  } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
@@ -17,7 +17,7 @@ import { ApiReponse } from '../../../shared/models/api-reponse';
   styleUrls: ['./user.css'],
 })
 export class User implements OnInit {
-  isEditModalOpen = false;
+  isEditModalOpen: boolean;
   tempNom: string = '';
   tempprenom: string = '';
   tempemail: string = '';
@@ -29,10 +29,13 @@ export class User implements OnInit {
     public authService: AuthService,
     public app: App,
     private userService: UserService,
-    private router: Router,
+    private cd: ChangeDetectorRef,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isEditModalOpen = false;
+    console.log(this.isEditModalOpen);
+  }
 
   openEditModal() {
     const p = this.app.currentUser;
@@ -41,6 +44,8 @@ export class User implements OnInit {
     this.tempemail = p.email || '';
     this.temppassword = p.password || '';
     this.tempphotoProfil = p.photoProfil || '';
+
+
     this.isEditModalOpen = true;
   }
 
@@ -49,17 +54,26 @@ export class User implements OnInit {
     if (!token) return;
 
     const upddateData = {
-      Nom: this.tempNom
+      Nom: this.tempNom,
+      prenom: this.tempprenom,
+      email: this.tempemail,
+      password: this.temppassword,
+      photoProfil: this.tempphotoProfil,
     }
 
     var bodyJSON = {
-      "nom": upddateData.Nom
+      "nom": upddateData.Nom,
+      "prenom": upddateData.prenom,
+      "email": upddateData.email,
+      "password": upddateData.password,
+      "photoProfil": upddateData.photoProfil,
     }
-  console.log(upddateData);
+
     this.userService.update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token)).subscribe((reponseUpdateAPI: ApiReponse) => {
       if (reponseUpdateAPI.status == "ok"){
         alert("Mise à jour avec Success");
-        this.router.navigate(['/user']);
+        this.cd.detectChanges()
+        this.isEditModalOpen = false;
       }
     })
   }
