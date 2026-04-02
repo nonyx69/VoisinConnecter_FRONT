@@ -13,24 +13,24 @@
 
       <div class="details-grid">
         <div class="detail-item">
-          <strong>Rémunération :</strong>
+          <strong>Rémunération : </strong>
           <span>{{ productSelected().remuneration }} €</span>
         </div>
 
         <div class="detail-item">
-          <strong>Postée le :</strong>
+          <strong>Postée le : </strong>
           <span>{{ productSelected().creation_date | date:'shortDate' }}</span>
         </div>
 
         <div class="detail-item">
-          <strong>Date :</strong>
+          <strong>Date : </strong>
           <span>{{productSelected().date_active | date: 'shortDate' }}</span>
         </div>
 
-        <div class="detail-item">
-          <strong>ID Utilisateur :</strong>
-          <span>#{{ productSelected().user_annonce_id }}</span>
-        </div>
+<!--        <div class="detail-item">-->
+<!--          <strong>ID Utilisateur :</strong>-->
+<!--          <span>#{{ productSelected().user_annonce_id }}</span>-->
+<!--        </div>-->
       </div>
     </div>
   } @else {
