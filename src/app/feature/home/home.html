@@ -1,28 +1,23 @@
-@if (currentUser && currentUser.token){
-
+@if (currentUser){
   <div class="dashboard">
-
-    @if (currentUser.id){
-
+    <h3>Mes Annonces</h3>
       <div class="products-grid-user">
-        @for (item of products(); track item.id) {
+        @for (item of Userproduct(); track item.id) {
           <div class="product" [routerLink]="['/product', item.id]">
             <h3>{{ item.title || 'Sans titre' }}</h3>
             <p>{{ item.description || 'Pas de description' }}</p>
           </div>
         }
       </div>
-    }
-
+    <br>
     <div class="lien-dashboard-user">
-      <a routerLink="/dashboard">mes annonces</a>ng
+      <a routerLink="/user">mes annonces</a>
     </div>
-
   </div>
 
 
   <div class="container">
-
+  <h3>Les Annonces Récentes </h3>
     <div class="products-grid">
       @for (item of products(); track item.id) {
         <div class="product" [routerLink]="['/product', item.id]">
@@ -33,12 +28,10 @@
     </div>
 
     <div class="lien-annonce">
-      <a routerLink="/all-products">voir plus</a>
+      <a routerLink="/annonces">voir plus</a>
     </div>
   </div>
-}
-
-
+}@else{
   <div class="container">
 
     <div class="products-grid">
@@ -54,5 +47,6 @@
       <a routerLink="/annonces">voir plus</a>
     </div>
   </div>
+}
 
 
