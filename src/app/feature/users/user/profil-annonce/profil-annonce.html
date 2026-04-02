@@ -1,8 +1,15 @@
 @if (selectedProduct){
-
-  <h2>Affiché toute les annonce de l'utilisateur par une boucle</h2>
-
-
-} @else {
+    <div class="products-grid-user">
+      @for (item of selectedProduct; track item.id) {
+        <div class="product" [routerLink]="['/product', item.id]">
+          <h3>{{ item.title || 'Sans titre' }}</h3>
+          <p>{{ item.description || 'Pas de description' }}</p>
+        </div>
+      }
+    </div>
+}@else if(ShowItems){
   <h2>Aucune annonce</h2>
+} @else {
+  <h2>Chargement de vos Données....</h2>
 }
+
