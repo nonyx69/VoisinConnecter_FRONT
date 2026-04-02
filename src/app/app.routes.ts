@@ -5,7 +5,7 @@ import { Annonces} from './feature/annonces/annonces';
 import { Login } from './feature/auth/login/login';
 import { Register } from './feature/auth/register/register';
 import { Profil } from './feature/users/user/user';
-import { Admin } from './feature/users/admin/admin';
+import { AdminComponent } from './feature/users/admin/admin';
 import { Err } from './feature/err/err';
 
 export const routes: Routes = [
@@ -15,6 +15,6 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
   { path: 'user', component: Profil },
-  { path: 'admin', component: Admin },
+  { path: 'admin', component: AdminComponent },
   { path: '**', component: Err },
 ];
