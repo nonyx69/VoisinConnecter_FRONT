@@ -1,0 +1,30 @@
+.admin-container { padding: 20px; max-width: 1200px; margin: 0 auto; }
+
+/* Grille de stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stat-number { font-size: 2rem; font-weight: bold; color: #007bff; }
+
+/* Table et recherche */
+.header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+input { padding: 10px; width: 300px; border-radius: 5px; border: 1px solid #ddd; }
+
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+th { background: #333; color: white; }
+
+.btn-delete { background: #ff4d4d; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+.btn-delete:hover { background: #cc0000; }

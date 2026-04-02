@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Admin, StatsData } from '../../../shared/models/admin.model';
-import { App } from '../../../app';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { StatsData } from '../../../shared/models/admin.model';
 import { AdminService } from '../../../core/services/admin';
 import { User } from '../../../shared/models/user.model';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin.html',
   styleUrls: ['./admin.css'],
 })
@@ -15,15 +18,9 @@ export class AdminComponent implements OnInit {
   filteredUsers: User[] = [];
   searchQuery: string = '';
 
-  constructor(
-    private adminService: AdminService,
-    private userService: User,
-    private StatsData: StatsData,
-    private app: App,
-  ) {}
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
-
     this.loadStats();
     this.loadUsers();
   }
@@ -37,7 +34,7 @@ export class AdminComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des statistiques', error);
-      }
+      },
     });
   }
 
@@ -51,7 +48,7 @@ export class AdminComponent implements OnInit {
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des utilisateurs', error);
-      }
+      },
     });
   }
 
@@ -63,10 +60,11 @@ export class AdminComponent implements OnInit {
       return;
     }
 
-    this.filteredUsers = this.users.filter(user =>
-      user.Nom.toLowerCase().includes(query) ||
-      user.prenom.toLowerCase().includes(query) ||
-      user.email.toLowerCase().includes(query)
+    this.filteredUsers = this.users.filter(
+      (user) =>
+        user.Nom?.toLowerCase().includes(query) ||
+        user.prenom?.toLowerCase().includes(query) ||
+        user.email?.toLowerCase().includes(query),
     );
   }
 
@@ -74,12 +72,12 @@ export class AdminComponent implements OnInit {
     if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       this.adminService.deleteUser(id).subscribe({
         next: () => {
-          this.users = this.users.filter(user => user.id !== id);
+          this.users = this.users.filter((user) => user.id !== id);
           this.filterUsers();
         },
         error: (error) => {
           console.error('Erreur lors de la suppression', error);
-        }
+        },
       });
     }
   }
