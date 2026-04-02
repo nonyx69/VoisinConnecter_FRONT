@@ -22,14 +22,12 @@ export class App {
   url_API_DEV = 'http://localhost:8000';
   url_API_PROD = 'https://api.com';
 
-  public currentUser: User|undefined = null;
+  public currentUser: User = null;
   public currentToken: string|undefined = null;
 
   constructor(public authService: AuthService,
               private cookiesService: CookieService,
               private router: Router,) {
-
-    console.log("salut");
 
     const cookieToken:string = this.cookiesService.get('voisinConnecterToken');
 
@@ -107,8 +105,6 @@ export class App {
     });
 
   }
-
-  sign() {}
 
   logOut() {
     this.currentUser = null;

@@ -1,11 +1,25 @@
-
 @if(authService.currentUserSelect()){
   <div class="content-wrapper">
     <div class="avatar-section">
       <img [src]="" alt="Photo de profil" class="avatar-img">
       <h2>{{ authService.currentUserSelect().Nom || 'Sans Nom' }} </h2>
       <p><strong>Email :</strong> {{ authService.currentUserSelect().email || 'Sans email' }}  </p>
+      <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier </button>
     </div>
+
+
+
+    @if(openEditModal){
+    <div class="input-group">
+      <label>Nom : </label>
+      <input type="text" [(ngModel)]="tempNom" placeholder="Parle-nous de toi...">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="isEditModalOpen = false">Annuler</button>
+      <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
+    </div>
+    }
 
     <main class="info-card">
 

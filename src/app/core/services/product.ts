@@ -21,6 +21,10 @@ export class ProductService {
     return this.http.get<ApiReponse>(apiUrl + '/annonce/getAll', options);
   }
 
+  filterByCreateDate(apiUrl:string, options: { headers: HttpHeaders }): Observable<ApiReponse> {
+    return this.http.get<ApiReponse>(apiUrl + '/annonce/createAt', options);
+  }
+
   filterBy(
     productCategory: string,
     apiUrl: string,
