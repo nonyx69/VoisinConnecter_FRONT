@@ -17,7 +17,7 @@ import { Location } from '@angular/common';
 })
 export class Product implements OnInit {
 
-  productSelected = signal<ProductModel>(null);
+  productSelected = signal<ProductModel | null>(null);
 
   constructor(
     private route: ActivatedRoute,
