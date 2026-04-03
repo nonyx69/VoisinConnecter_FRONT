@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { App } from '../../app';
 import { ProductService } from '../../core/services/product';
@@ -20,7 +20,14 @@ export class Annonces {
     { id: 5, name: 'Informatique' },
   ];
 
-  selected: string = "all";
+  //Suite pages
+  currentPage = signal(1);
+  itemsPerPage = 9;
+  start = this.currentPage();
+  hasPrevPage = computed(() => this.currentPage() > 1);
+  hasNextPage = computed(() => this.currentPage() < this.totalPages());
+
+  selected: string = 'all';
 
   constructor(
     private app: App,
@@ -38,6 +45,7 @@ export class Annonces {
           this.products.set(reponseProductAll.result);
         }
       });
+
   }
 
   Filtre(category: string) {
@@ -62,5 +70,29 @@ export class Annonces {
           this.products.set(reponseProductAll.result);
         }
       });
+  }
+
+  // Signal calculé pour les produits paginés
+  pages = computed(() => {
+    return Array.from({ length: this.totalPages() }, (_, i) => i + 1);
+  });
+
+  pagedProducts = computed(() => {
+    const startIndex = (this.currentPage() - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.products().slice(startIndex, endIndex);
+  });
+  totalPages = computed(() => Math.ceil(this.products().length / this.itemsPerPage));
+
+  nextPage() {
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.set(this.currentPage() + 1);
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage() > 1) {
+      this.currentPage.set(this.currentPage() - 1);
+    }
   }
 }

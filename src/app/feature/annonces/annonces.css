@@ -76,6 +76,37 @@
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
 }
+/* Conteneur de pagination */
+.pagination {
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  gap: 10px;              /* espace entre les boutons */
+  margin: 20px 0;          /* espace au-dessus et en-dessous */
+}
+
+/* Boutons */
+.pagination button {
+  background-color: #007bff; /* même couleur que tes boutons de catégories */
+  color: white;
+  border: none;
+  border-radius: 20px;       /* arrondi comme tes boutons de catégories */
+  padding: 8px 20px;         /* espace intérieur */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* État actif au hover */
+.pagination button:hover:not(:disabled) {
+  background-color: #0056b3; /* foncé au survol */
+}
+
+/* Boutons désactivés */
+.pagination button:disabled {
+  background-color: #ccc;   /* gris clair */
+  cursor: default;
+}
+
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -88,4 +119,5 @@
   .products-grid {
     grid-template-columns: 1fr;
   }
+
 }
