@@ -34,6 +34,11 @@
           <input type="email" [(ngModel)]="tempemail" placeholder="Nouvelle email">
         </div>
 
+        <div class="inputOne">
+          <label>Photo de Profile : </label>
+          <input type="text" [(ngModel)]="tempphotoProfil" placeholder="Lien de l'iamge de profil">
+        </div>
+
         <div class="modal-actions">
           <button class="btn-cancel" (click)="isEditModalOpen = false">Annuler</button>
           <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
@@ -69,6 +74,11 @@
           <div class="inputOne">
             <label>Rémunération : </label>
             <input type="number" [(ngModel)]="AnnonceRemuneration" placeholder="Montant du service">
+          </div>
+
+          <div class="inputOne">
+            <label>Date de l'événement : </label>
+            <input type="date" [(ngModel)]="AnnonceDateActive" placeholder="Le jour ou l'événement a lieu">
           </div>
 
           <div class="modal-actions">
