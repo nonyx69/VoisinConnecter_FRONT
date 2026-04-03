@@ -31,7 +31,7 @@
   </div>
 }@else{
   <div class="container">
-
+    <h3>Les Annonces Récentes</h3>
     <div class="products-grid">
       @for (item of products().slice(0, 3); track item.id) {
         <a class="product" [routerLink]="['/product', item.id]">

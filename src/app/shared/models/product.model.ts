@@ -9,6 +9,6 @@ export interface ProductModel {
   remuneration: number;
   date_active: string;
   creation_date: Date;
-  category: string;
+  categorie: string;
   user_annonce_id: number;
 }
