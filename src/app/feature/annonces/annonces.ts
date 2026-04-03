@@ -20,6 +20,8 @@ export class Annonces {
     { id: 5, name: 'Informatique' },
   ];
 
+  selected: string = "all";
+
   constructor(
     private app: App,
     private productService: ProductService,
@@ -39,6 +41,7 @@ export class Annonces {
   }
 
   Filtre(category: string) {
+    this.selected = 'category';
     this.productService
       .filterBy(category, this.app.urlAPI(), this.app.createCORS())
       .subscribe((reponseProductfiltre) => {
@@ -51,6 +54,7 @@ export class Annonces {
   }
 
   All() {
+    this.selected = 'all';
     this.productService
       .getAll(this.app.urlAPI(), this.app.createCORS())
       .subscribe((reponseProductAll) => {

@@ -1,16 +1,17 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ProductService } from '../../core/services/product';
 import { App } from '../../app';
 import { ApiReponse } from '../../shared/models/api-reponse';
 import { ProductModel } from '../../shared/models/product.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './product.html',
   styleUrl: './product.css',
 })
@@ -21,7 +22,9 @@ export class Product implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private app:App
+    private app:App,
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -38,6 +41,15 @@ export class Product implements OnInit {
           }
       });
 
+    }
+  }
+
+  goBack(): void {
+    if (window.history.length > 1) {
+      this.location.back();
+    } else {
+      // fallback
+      this.router.navigate(['/']);
     }
   }
 }

@@ -1,13 +1,14 @@
 <div class="filter-container">
   <h3>Catégories</h3>
-  <button (click)="All()">Tous</button>
-  @for (item of category; track item.id){
-    <button (click)="Filtre(item.name)">{{item.name}}</button>
-  }
+  <div class="filter-buttons">
+    <button (click)="All()" [class.active]="selected == 'all'">Tous</button>
+    @for (item of category; track item.id){
+      <button (click)="Filtre(item.name)" [class.active]="selected === item.name">{{item.name}}</button>
+    }
+  </div>
 </div>
 
 <div class="container">
-
   <div class="products-grid">
     @for (item of products(); track item.id) {
       <a class="product" [routerLink]="['/product', item.id]">

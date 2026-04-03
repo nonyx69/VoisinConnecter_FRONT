@@ -1,7 +1,7 @@
 <div class="container">
   @if (productSelected()) {
     <div class="product-detail-card">
-      <button routerLink="/" class="btn-back">← Retour</button>
+      <button (click)="goBack()" class="btn-back">← Retour</button>
 
       <h1>{{ productSelected().title }}</h1>
       <span class="badge">{{ productSelected().category }}</span>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="detail-item">
-          <strong>Date : </strong>
+          <strong>Date de l'événement : </strong>
           <span>{{productSelected().date_active | date: 'shortDate' }}</span>
         </div>
 
