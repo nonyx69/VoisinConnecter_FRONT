@@ -1,9 +1,9 @@
 <div class="filter-container">
   <h3>Catégories</h3>
   <button (click)="All()">Tous</button>
-  <button (click)="Filtre('Bricolage')"> Bricolage</button>
-  <button (click)="Filtre('Jardinage')"> Jardinage</button>
-  <button (click)="Filtre('Informatique')"> Informatique</button>
+  @for (item of category; track item.id){
+    <button (click)="Filtre(item.name)">{{item.name}}</button>
+  }
 </div>
 
 <div class="container">

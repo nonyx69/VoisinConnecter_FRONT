@@ -36,4 +36,9 @@ export class ProductService {
   getProductByUser(idUser: number, apiUrl: string, options: { headers: HttpHeaders }){
     return this.http.get<ApiReponse>(apiUrl + '/annonce/user/' + idUser, options);
   };
+
+  createAProduct(bodyNoJSON: any,apiUrl: string, options: { headers: HttpHeaders }):Observable<ApiReponse>{
+    const body = JSON.stringify(bodyNoJSON);
+    return this.http.post<ApiReponse>(apiUrl + '/create/annonce', body, options);
+  }
 }

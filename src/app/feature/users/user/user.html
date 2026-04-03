@@ -5,6 +5,7 @@
       <h2>{{ authService.currentUserSelect().Nom || 'Sans Nom' }} </h2>
       <p><strong>Email :</strong> {{ authService.currentUserSelect().email || 'Sans email' }}  </p>
       <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier </button>
+      <button class="create-btn-gear" (click)="isCreateAnnonce = true"> Crée une Annonce</button>
     </div>
 
     @if(this.isEditModalOpen){
@@ -40,10 +41,48 @@
         <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
       </div>
     }
+
+    @if(this.isCreateAnnonce){
+      <div class="input-group">
+        <div class="inputOne">
+          <label>Categories : </label>
+           @for (item of category; track item.id){
+             <button (click)="setCategory(item.name)">{{item.name}}</button>
+           }
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Titre :</label>
+          <input type="text" [(ngModel)]="AnnonceTitle" placeholder="Exemple : Aide pour Tondre le jardin">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Description :</label>
+          <input type="text" [(ngModel)]="AnnonceDescription" placeholder="Exemple : Je rechecher quelqu'un pour tondre mon jardin de 20m² | Adresse : 2 rue de la Paix 69003">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Rémunération : </label>
+          <input type="number" [(ngModel)]="AnnonceRemuneration" placeholder="le montant que vous souhaiter donner a la personne">
+        </div>
+        <br>
+        <div class="inputOne">
+          <label>Date de l'événement</label>
+          <input type="date" [(ngModel)]="AnnonceDateActive" placeholder="Le jour ou l'événement a lieu">
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="isCreateAnnonce = false">Annuler</button>
+        <button class="btn-save" (click)="createAnnonce()">Postée</button>
+      </div>
+    }
     <main class="info-card">
       <app-profil-annonce></app-profil-annonce>
     </main>
   </div>
 } @else {
-  <app-err></app-err>
+
 }
+
+
