@@ -17,21 +17,21 @@
     </div>
 
     @if(this.isEditModalOpen){
-      <div class="input-group-container"> <div class="modal-content">      <h3>Modifier le Profil</h3>
-
+      <div class="input-group-container"> <div class="modal-content">
+        <h3>Modifier le Profil</h3>
         <div class="inputOne">
           <label>Nom :</label>
-          <input type="text" [(ngModel)]="tempNom" placeholder="Nom...">
+          <input type="text" [(ngModel)]="tempNom" placeholder="Nouveau nom">
         </div>
 
         <div class="inputOne">
           <label>Prenom :</label>
-          <input type="text" [(ngModel)]="tempprenom" placeholder="Prénom...">
+          <input type="text" [(ngModel)]="tempprenom" placeholder="Nouveau prénom">
         </div>
 
         <div class="inputOne">
           <label>Email :</label>
-          <input type="email" [(ngModel)]="tempemail">
+          <input type="email" [(ngModel)]="tempemail" placeholder="Nouvelle email">
         </div>
 
         <div class="modal-actions">
@@ -63,7 +63,12 @@
 
           <div class="inputOne">
             <label>Description :</label>
-            <input type="text" [(ngModel)]="AnnonceDescription" placeholder="Détails...">
+            <input type="text" [(ngModel)]="AnnonceDescription" placeholder="Détails du produit">
+          </div>
+
+          <div class="inputOne">
+            <label>Rémunération : </label>
+            <input type="number" [(ngModel)]="AnnonceRemuneration" placeholder="Montant du service">
           </div>
 
           <div class="modal-actions">
