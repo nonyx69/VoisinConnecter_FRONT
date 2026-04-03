@@ -9,9 +9,9 @@ import { ProfilAnnonce } from './profil-annonce/profil-annonce';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { ApiReponse } from '../../../shared/models/api-reponse';
+import { Err } from '../../err/err';
 import { ProductService } from '../../../core/services/product';
 import { Status } from '../../../core/services/status';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -61,12 +61,13 @@ export class User implements OnInit {
   ngOnInit(): void {}
 
   openEditModal() {
-    const p = this.app.currentUser;
-    this.tempNom = p.Nom || '';
-    this.tempprenom = p.prenom || '';
-    this.tempemail = p.email || '';
-    this.temppassword = p.password || '';
-    this.tempphotoProfil = p.photoProfil || '';
+    // const p = this.app.currentUser;
+    // this.tempNom = p.Nom || '';
+    // this.tempprenom = p.prenom || '';
+    // this.tempemail = p.email || '';
+    // this.temppassword = p.password || '';
+    // this.tempphotoProfil = p.photoProfil || '';
+    //
 
     this.isEditModalOpen = true;
   }
@@ -81,15 +82,16 @@ export class User implements OnInit {
       email: this.tempemail,
       password: this.temppassword,
       photoProfil: this.tempphotoProfil,
-    }
+    };
 
     var bodyJSON = {
-      "nom": upddateData.Nom,
-      "prenom": upddateData.prenom,
-      "email": upddateData.email,
-      "password": upddateData.password,
-      "photoProfil": upddateData.photoProfil,
-    }
+      nom: upddateData.Nom,
+      prenom: upddateData.prenom,
+      email: upddateData.email,
+      password: upddateData.password,
+      photoProfil: upddateData.photoProfil,
+    };
+
 
     this.userService.update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token)).subscribe((reponseUpdateAPI: ApiReponse) => {
       if (reponseUpdateAPI.status == "ok"){

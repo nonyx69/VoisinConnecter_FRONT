@@ -1,80 +1,76 @@
 @if(authService.currentUserSelect()){
   <div class="content-wrapper">
     <div class="avatar-section">
-      <img [src]="" alt="Photo de profil" class="avatar-img">
-      <h2>{{ authService.currentUserSelect().Nom || 'Sans Nom' }} </h2>
-      <p><strong>Email :</strong> {{ authService.currentUserSelect().email || 'Sans email' }}  </p>
-      <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier </button>
-      <button class="create-btn-gear" (click)="isCreateAnnonce = true"> Crée une Annonce</button>
+      <div class="avatar-img-container">
+        <img src="avatar.webp" alt="Photo de profil" class="avatar-img"> /*[src]="authService.currentUserSelect().photoProfil" ||*/
+      </div>
+
+      <div class="profile-info">
+        <h2>{{ authService.currentUserSelect().Nom || 'Sans Nom' }}</h2>
+        <p><strong>Email :</strong> {{ authService.currentUserSelect().email || 'Sans email' }}</p>
+
+        <div class="actions">
+          <button class="edit-btn-gear" (click)="openEditModal()">⚙️ Modifier</button>
+          <button class="create-btn-gear" (click)="isCreateAnnonce = true">➕ Créer une Annonce</button>
+        </div>
+      </div>
     </div>
 
     @if(this.isEditModalOpen){
-      <div class="input-group">
+      <div class="input-group-container"> <div class="modal-content">      <h3>Modifier le Profil</h3>
+
         <div class="inputOne">
-          <label>Nom : </label>
-          <input type="text" [(ngModel)]="tempNom" placeholder="Parle-nous de toi...">
+          <label>Nom :</label>
+          <input type="text" [(ngModel)]="tempNom" placeholder="Nom...">
         </div>
-        <br>
+
         <div class="inputOne">
-          <label>Prenom : </label>
-          <input type="text" [(ngModel)]="tempprenom" placeholder="Parle-nous de toi...">
+          <label>Prenom :</label>
+          <input type="text" [(ngModel)]="tempprenom" placeholder="Prénom...">
         </div>
-        <br>
+
         <div class="inputOne">
-          <label>Email: </label>
-          <input type="email" [(ngModel)]="tempemail" placeholder="Parle-nous de toi...">
+          <label>Email :</label>
+          <input type="email" [(ngModel)]="tempemail">
         </div>
-        <br>
-        <div class="inputOne">
-          <label>Photo de Profile: </label>
-          <input type="text" [(ngModel)]="tempphotoProfil" placeholder="Parle-nous de toi...">
-        </div>
-        <br>
-        <div class="inputOne">
-          <label>Mot de passe : </label>
-          <input type="password" [(ngModel)]="temppassword" placeholder="Parle-nous de toi...">
+
+        <div class="modal-actions">
+          <button class="btn-cancel" (click)="isEditModalOpen = false">Annuler</button>
+          <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
         </div>
       </div>
-
-      <div class="modal-actions">
-        <button class="btn-cancel" (click)="isEditModalOpen = false">Annuler</button>
-        <button class="btn-save" (click)="saveProfil()">Enregistrer</button>
       </div>
     }
 
     @if(this.isCreateAnnonce){
-      <div class="input-group">
-        <div class="inputOne">
-          <label>Categories : </label>
-           @for (item of category; track item.id){
-             <button (click)="setCategory(item.name)">{{item.name}}</button>
-           }
-        </div>
-        <br>
-        <div class="inputOne">
-          <label>Titre :</label>
-          <input type="text" [(ngModel)]="AnnonceTitle" placeholder="Exemple : Aide pour Tondre le jardin">
-        </div>
-        <br>
-        <div class="inputOne">
-          <label>Description :</label>
-          <input type="text" [(ngModel)]="AnnonceDescription" placeholder="Exemple : Je rechecher quelqu'un pour tondre mon jardin de 20m² | Adresse : 2 rue de la Paix 69003">
-        </div>
-        <br>
-        <div class="inputOne">
-          <label>Rémunération : </label>
-          <input type="number" [(ngModel)]="AnnonceRemuneration" placeholder="le montant que vous souhaiter donner a la personne">
-        </div>
-        <br>
-        <div class="inputOne">
-          <label>Date de l'événement</label>
-          <input type="date" [(ngModel)]="AnnonceDateActive" placeholder="Le jour ou l'événement a lieu">
-        </div>
-      </div>
+      <div class="input-group-container">
+        <div class="modal-content">
+          <h3>Nouvelle Annonce</h3>
 
-      <div class="modal-actions">
-        <button class="btn-cancel" (click)="isCreateAnnonce = false">Annuler</button>
-        <button class="btn-save" (click)="createAnnonce()">Postée</button>
+          <div class="inputOne">
+            <label>Catégories :</label>
+            <div class="category-list">
+              @for (item of category; track item.id){
+                <button type="button" (click)="setCategory(item.name)">{{item.name}}</button>
+              }
+            </div>
+          </div>
+
+          <div class="inputOne">
+            <label>Titre :</label>
+            <input type="text" [(ngModel)]="AnnonceTitle" placeholder="Titre de l'annonce">
+          </div>
+
+          <div class="inputOne">
+            <label>Description :</label>
+            <input type="text" [(ngModel)]="AnnonceDescription" placeholder="Détails...">
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-cancel" (click)="isCreateAnnonce = false">Annuler</button>
+            <button class="btn-save" (click)="createAnnonce()">Publier</button>
+          </div>
+        </div>
       </div>
     }
     <main class="info-card">
