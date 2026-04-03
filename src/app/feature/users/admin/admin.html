@@ -1,58 +1,68 @@
-<div class="admin-container">
-  <h1>Tableau de Bord Administrateur</h1>
+@if(authService.currentUserSelect()){
+  <div class="admin-container">
+    <h1>Tableau de Bord Administrateur</h1>
 
-  <div class="stats-grid" *ngIf="stats">
-    <div class="stat-card">
-      <h3>Utilisateurs Actifs</h3>
-      <p class="stat-number">{{ stats.totalUsers }}</p>
+    @if (stats){
+      <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Utilisateurs Actifs</h3>
+        <p class="stat-number">{{ stats.totalUsers }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Total Annonces</h3>
+        <p class="stat-number">{{ stats.totalAnnonces }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>Top Catégorie</h3>
+        <p class="stat-category">{{ stats.topCategory }}</p>
+      </div>
     </div>
-    <div class="stat-card">
-      <h3>Total Annonces</h3>
-      <p class="stat-number">{{ stats.totalAnnonces }}</p>
-    </div>
-    <div class="stat-card">
-      <h3>Top Catégorie</h3>
-      <p class="stat-category">{{ stats.topCategory || 'N/A' }}</p>
+    }
+    <hr>
+
+    <div class="user-management">
+      <div class="header-actions">
+        <h2>Liste des Utilisateurs</h2>
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          (input)="filterUsers()"
+          placeholder="Rechercher par Nom, Prénom ou Email...">
+      </div>
+
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of filteredUsers; track user.id)
+          {
+          <tr>
+            <td>#{{ user.id }}</td>
+            <td>{{ user.Nom }}</td>
+            <td>{{ user.prenom }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button class="btn-delete" (click)="deleteUser(user.id)">
+                Bannir / Supprimer
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+
+      @if (filteredUsers.length === 0){
+        <p>Aucun utilisateur trouvé.</p>
+      }
     </div>
   </div>
-
-  <hr>
-
-  <div class="user-management">
-    <div class="header-actions">
-      <h2>Liste des Utilisateurs</h2>
-      <input
-        type="text"
-        [(ngModel)]="searchQuery"
-        (input)="filterUsers()"
-        placeholder="Rechercher par Nom, Prénom ou Email...">
-    </div>
-
-    <table>
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Email</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let user of filteredUsers">
-        <td>#{{ user.id }}</td>
-        <td>{{ user.Nom }}</td>
-        <td>{{ user.prenom }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <button class="btn-delete" (click)="deleteUser(user.id)">
-            Bannir / Supprimer
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-
-    <p *ngIf="filteredUsers.length === 0">Aucun utilisateur trouvé.</p>
-  </div>
-</div>
+} @else {
+  <app-err></app-err>
+}

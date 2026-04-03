@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { StatsData } from '../../../shared/models/admin.model';
 import { AdminService } from '../../../core/services/admin';
 import { User } from '../../../shared/models/user.model';
+import { Err } from '../../err/err';
+import { AuthService } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, Err],
   templateUrl: './admin.html',
   styleUrls: ['./admin.css'],
 })
@@ -18,7 +19,10 @@ export class AdminComponent implements OnInit {
   filteredUsers: User[] = [];
   searchQuery: string = '';
 
-  constructor(private adminService: AdminService) {}
+  constructor(
+    private adminService: AdminService,
+    public authService: AuthService,
+    ) {}
 
   ngOnInit(): void {
     this.loadStats();
@@ -41,8 +45,9 @@ export class AdminComponent implements OnInit {
   loadUsers(): void {
     this.adminService.getUsers().subscribe({
       next: (response) => {
-        if (response.result) {
-          this.users = response.result;
+        const data = response.result ? response.result : response;
+        if (Array.isArray(data)) {
+          this.users = data;
           this.filteredUsers = [...this.users];
         }
       },

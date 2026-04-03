@@ -9,10 +9,11 @@ import { ProfilAnnonce } from './profil-annonce/profil-annonce';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { ApiReponse } from '../../../shared/models/api-reponse';
+import { Err } from '../../err/err';
 
 @Component({
   selector: 'app-user',
-  imports: [CommonModule, RouterLink, ProfilAnnonce, FormsModule],
+  imports: [CommonModule, ProfilAnnonce, FormsModule, Err],
   templateUrl: './user.html',
   styleUrls: ['./user.css'],
 })
@@ -38,13 +39,13 @@ export class User implements OnInit {
   }
 
   openEditModal() {
-    const p = this.app.currentUser;
-    this.tempNom = p.Nom || '';
-    this.tempprenom = p.prenom || '';
-    this.tempemail = p.email || '';
-    this.temppassword = p.password || '';
-    this.tempphotoProfil = p.photoProfil || '';
-
+    // const p = this.app.currentUser;
+    // this.tempNom = p.Nom || '';
+    // this.tempprenom = p.prenom || '';
+    // this.tempemail = p.email || '';
+    // this.temppassword = p.password || '';
+    // this.tempphotoProfil = p.photoProfil || '';
+    //
 
     this.isEditModalOpen = true;
   }
@@ -59,23 +60,25 @@ export class User implements OnInit {
       email: this.tempemail,
       password: this.temppassword,
       photoProfil: this.tempphotoProfil,
-    }
+    };
 
     var bodyJSON = {
-      "nom": upddateData.Nom,
-      "prenom": upddateData.prenom,
-      "email": upddateData.email,
-      "password": upddateData.password,
-      "photoProfil": upddateData.photoProfil,
-    }
+      nom: upddateData.Nom,
+      prenom: upddateData.prenom,
+      email: upddateData.email,
+      password: upddateData.password,
+      photoProfil: upddateData.photoProfil,
+    };
 
-    this.userService.update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token)).subscribe((reponseUpdateAPI: ApiReponse) => {
-      if (reponseUpdateAPI.status == "ok"){
-        alert("Mise à jour avec Success");
-        this.cd.detectChanges()
-        this.isEditModalOpen = false;
-      }
-    })
+    this.userService
+      .update(bodyJSON, this.app.urlAPI(), this.app.createCORS(token))
+      .subscribe((reponseUpdateAPI: ApiReponse) => {
+        if (reponseUpdateAPI.status == 'ok') {
+          alert('Mise à jour avec Success');
+          this.cd.detectChanges();
+          this.isEditModalOpen = false;
+        }
+      });
   }
 
   updateLocalData(p: string, value: string) {

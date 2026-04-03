@@ -34,7 +34,7 @@ export class AdminService {
   }
 
   getUsers(): Observable<ApiResponse<User[]>> {
-    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/admin/users`, this.getOptions());
+    return this.http.get<ApiResponse<User[]>>(`${this.apiUrl}/all/users`, this.getOptions());
   }
 
   deleteUser(id: number): Observable<ApiResponse<void>> {
